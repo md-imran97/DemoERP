@@ -2,27 +2,20 @@ package com.utility;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.entity.Employee;
 
 public class EmployeeHelper {
 
-	public static Employee rsToEmployee(ResultSet rs) throws SQLException
+	public static List<Employee> rsToEmployee(ResultSet rs) throws SQLException
 	{
-		Employee employee=new Employee();
+		List<Employee> empList=new ArrayList<Employee>();
 		while(rs.next())
 		{
-			/*
-			 * System.out.println("in helper "+rs.getInt("id"));
-			 * System.out.println("in helper "+rs.getString("name"));
-			 * System.out.println("in helper "+rs.getString("email"));
-			 * System.out.println("in helper "+rs.getString("password"));
-			 * System.out.println("in helper "+rs.getString("designation"));
-			 * System.out.println("in helper "+rs.getInt("employee_type"));
-			 * System.out.println("in helper "+rs.getInt("gender"));
-			 * System.out.println("in helper "+rs.getInt("team_id"));
-			 */
-			 
+			Employee employee=new Employee();
+			
 			// employee object build with output data
 			employee.setId(rs.getInt("id"));
 			employee.setName(rs.getString("name"));
@@ -31,10 +24,10 @@ public class EmployeeHelper {
 			employee.setDesignation(rs.getString("designation"));
 			employee.setEmpType(rs.getInt("employee_type"));
 			employee.setTeamId(rs.getInt("team_id"));
+			employee.setGender(rs.getInt("gender"));
 			
-			if(rs.getInt("gender")==1){employee.setGender("male");}
-			else {employee.setGender("female");}	
+			empList.add(employee);
 		}
-		return employee;
+		return empList;
 	}
 }

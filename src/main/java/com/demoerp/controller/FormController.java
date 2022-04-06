@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class FormController {
 
-	@RequestMapping(value="/showform", method=RequestMethod.GET)
+	@RequestMapping(value="/showforms", method=RequestMethod.GET)
 	public String showForm()
 	{
 		return "showform";
