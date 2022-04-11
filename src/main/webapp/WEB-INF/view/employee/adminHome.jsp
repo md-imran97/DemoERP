@@ -1,12 +1,12 @@
-<%@page import="com.entity.Employee"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="com.entity.Employee"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Developer home page</title>
+<title>Admin home page</title>
 </head>
 <body>
 <div align="center">
@@ -29,7 +29,7 @@
 			<td>Gender : </td>
 			<td>
 			<%
-				Employee employee=(Employee)request.getAttribute("userInfo");
+				Employee employee=(Employee) request.getAttribute("userInfo");
 				if(employee.getEmployeeGender()==0){out.print("Male");}
 				else{out.print("Female");}
 			%>

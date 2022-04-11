@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,13 +9,13 @@
 	</head>
 	<body>
 		<div align="center" >
-		${a}<br>
-		${msg}<br>
-			<form action="login" method="post" class="formcontrol">
-			<input type="text" name="email" placeholder="Enter your email"><br><br>
-			<input type="password" name="password" placeholder="Enter your password"><br><br>
+			<h1>DemoERP Login Page</h1><br>
+			${error}
+			<form:form action="login" method="post" modelAttribute="loginEntity">
+			<form:input  path="email" placeholder="Enter your email"/><br><br>
+			<form:input type="password" path="password" placeholder="Enter your password"/><br><br>
 			<input type="submit" value="Login" >
-			</form>
+			</form:form>
 		</div>
 	</body>
 </html>
