@@ -11,6 +11,8 @@
 <body>
 <div align="center">
 	<h1>Employee Profile</h1><br>
+	<a href="create-project">Create Project </a><br><br>
+	<a href="show-projects"> Show Projects</a>
 	<h2>Personal Info:</h2>
 	<table border="1">
 		<tr>

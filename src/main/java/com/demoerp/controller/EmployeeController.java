@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.database.Database;
 import com.entity.Employee;
+import com.entity.Project;
 import com.viewmodel.LoginEntity;
 
 @Controller
@@ -40,7 +41,8 @@ public class EmployeeController {
 	public String login(@ModelAttribute("loginEntity") LoginEntity loginEntity, Model model) throws ClassNotFoundException, SQLException
 	{
 		
-		Database db=new Database();
+		//Database db=new Database();
+		Database db=Database.getDatabase();
 		Employee employee=db.getEmployeeDb().getEmployee(loginEntity.getEmail());
 		if((employee !=null) && (employee.getEmployeePassword().equals(loginEntity.getPassword())))
 		{
@@ -62,18 +64,26 @@ public class EmployeeController {
 	//------------------------- Login controller methods end --------------------
 	
 	@RequestMapping(value = "/developer-home")
-	public String developerHome(Model model, @SessionAttribute(name="user", required=false) Employee employee)
+	public String developerHome(Model model, @SessionAttribute(name="user", required=false) Employee employee) throws SQLException, ClassNotFoundException
 	{
 		if(employee==null || employee.getEmployeeType()==0) {return "redirect:/login";}
-		model.addAttribute("userInfo", employee);
+		
+		Database db=Database.getDatabase();
+		Employee emp=db.getEmployeeDb().getEmployee(employee.getEmployeeEmail());
+		model.addAttribute("userInfo", emp);
+		
 		return "employee/developerHome";
 	}
 	
 	@RequestMapping(value = "/admin-home")
-	public String employeeHome(Model model, @SessionAttribute(name="user", required=false) Employee employee)
+	public String employeeHome(Model model, @SessionAttribute(name="user", required=false) Employee employee) throws ClassNotFoundException, SQLException
 	{
 		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
-		model.addAttribute("userInfo", employee);
+		
+		Database db=Database.getDatabase();
+		Employee emp=db.getEmployeeDb().getEmployee(employee.getEmployeeEmail());
+		model.addAttribute("userInfo", emp);
+		
 		return "employee/adminHome";
 	}
 }

@@ -19,6 +19,14 @@ public class Database {
 	private LeaveDb leaveDb;
 	private AttendanceDb attendanceDb;
 	
+	// Singleton design: allow to create only one database object
+	private static Database db=null;
+	public static Database getDatabase() throws ClassNotFoundException, SQLException
+	{
+		if(db==null) {db=new Database();System.out.println("singleton");}
+		return db;
+	}
+	
 	public Database() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("org.postgresql.Driver");
@@ -26,7 +34,9 @@ public class Database {
 		
 		employeeDb=new EmployeeDb(connection);
 		teamDb=new TeamDb(connection);
+		projectDb=new ProjectDb(connection);
 	}
+	
 
 	public EmployeeDb getEmployeeDb() {
 		return employeeDb;

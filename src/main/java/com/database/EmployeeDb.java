@@ -24,7 +24,7 @@ public class EmployeeDb {
 		ResultSet rs = pst.executeQuery();
 		
 		Employee emplyee=EmployeeUtil.rsToEmployee(rs);
-		rs.close();pst.close();connection.close();
+		rs.close();pst.close();//connection.close();
 		return emplyee;
 	}
 	
@@ -46,6 +46,7 @@ public class EmployeeDb {
 		pst.setInt(7, employee.getEmployeeStatus());
 		
 		pst.executeUpdate();
+		pst.close();
 	}
 	
 }
