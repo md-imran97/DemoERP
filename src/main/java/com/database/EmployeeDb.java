@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.entity.Employee;
 import com.utility.EmployeeUtil;
@@ -26,6 +27,17 @@ public class EmployeeDb {
 		Employee emplyee=EmployeeUtil.rsToEmployee(rs);
 		rs.close();pst.close();//connection.close();
 		return emplyee;
+	}
+	
+	public List<Employee> getAllEmployee() throws SQLException
+	{
+		String query="select * from employee";
+		PreparedStatement pst=connection.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
+		
+		var emplyees=EmployeeUtil.rsToEmployees(rs);
+		rs.close();pst.close();//connection.close();
+		return emplyees;
 	}
 	
 	public void addEmployee(Employee employee) throws SQLException

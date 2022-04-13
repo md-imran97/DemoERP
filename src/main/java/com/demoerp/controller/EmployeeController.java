@@ -86,4 +86,14 @@ public class EmployeeController {
 		
 		return "employee/adminHome";
 	}
+	
+	@RequestMapping(value="show-employees")
+	public String showEmployees(Model model, @SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
+	{
+		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		Database db=Database.getDatabase();
+		model.addAttribute("employees", db.getEmployeeDb().getAllEmployee());
+		
+		return "employee/showEmployees";
+	}
 }

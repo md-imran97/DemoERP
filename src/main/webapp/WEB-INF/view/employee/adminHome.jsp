@@ -11,10 +11,17 @@
 <body>
 <div align="center">
 	<h1>Employee Profile</h1><br>
-	<a href="create-project">Create Project </a><br><br>
-	<a href="show-projects"> Show Projects</a>
+	<a href="create-project">Create Project</a><br><br>
+	<a href="show-projects">Show Projects</a><br><br>
+	<a href="create-team">Create Team</a><br><br>
+	<a href="show-teams">Show Teams</a><br><br>
+	<a href="show-employees">Show Employees</a><br><br>
 	<h2>Personal Info:</h2>
 	<table border="1">
+		<tr>
+			<td>ID : </td>
+			<td>${userInfo.employeeId}</td>
+		</tr>
 		<tr>
 			<td>Name : </td>
 			<td>${userInfo.employeeName}</td>

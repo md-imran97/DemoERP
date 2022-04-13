@@ -14,6 +14,10 @@
 	<h2>Personal Info:</h2>
 	<table border="1">
 		<tr>
+			<td>ID : </td>
+			<td>${userInfo.employeeId}</td>
+		</tr>
+		<tr>
 			<td>Name : </td>
 			<td>${userInfo.employeeName}</td>
 		</tr>
