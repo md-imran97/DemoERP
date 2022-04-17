@@ -26,4 +26,20 @@ public class ProjectUtil {
 		}
 		return projects;
 	}
+	
+	public static Project rsToProject(ResultSet rs) throws SQLException
+	{
+		Project project=null;
+		while(rs.next())
+		{
+			project=new Project();
+			
+			project.setProjectId(rs.getInt("project_id"));
+			project.setProjectName(rs.getString("project_name"));
+			project.setProjectClientName(rs.getString("project_client_name"));
+			project.setProjectClientEmail(rs.getString("project_client_email"));
+			project.setProjectStatus(rs.getInt("project_status"));
+		}
+		return project;
+	}
 }

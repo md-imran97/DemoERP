@@ -46,4 +46,14 @@ public class ProjectDb {
 		rs.close();pst.close();
 		return projects;
 	}
+	
+	public Project getProject(int id) throws SQLException
+	{
+		String query="select * from project where project_id="+id;
+		PreparedStatement pst=connection.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
+		var project=ProjectUtil.rsToProject(rs);
+		rs.close();pst.close();
+		return project;
+	}
 }

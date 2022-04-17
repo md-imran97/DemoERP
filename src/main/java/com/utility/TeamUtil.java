@@ -23,4 +23,18 @@ public class TeamUtil {
 		}
 		return teams;
 	}
+	
+	public static Team rsToTeam(ResultSet rs) throws SQLException
+	{
+		Team team=null;
+		while(rs.next())
+		{
+			team=new Team();
+			team.setTeamId(rs.getInt("team_id"));
+			team.setTeamName(rs.getString("team_name"));
+			team.setTeamStatus(rs.getInt("team_status"));
+			team.setProjectId(rs.getInt("project_id"));
+		}
+		return team;
+	}
 }

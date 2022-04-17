@@ -42,4 +42,40 @@ public class TeamDb {
 		rs.close();pst.close();
 		return teams;
 	}
+	
+	public Team getTeam(int teamId) throws SQLException
+	{
+		String query="select * from team where team_id="+teamId;
+		PreparedStatement pst=connection.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
+		var team=TeamUtil.rsToTeam(rs);
+		rs.close();pst.close();
+		return team;
+	}
+	
+	public Team getTeamByProjectId(int projectId) throws SQLException
+	{
+		String query="select * from team where project_id="+projectId;
+		PreparedStatement pst=connection.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
+		var team=TeamUtil.rsToTeam(rs);
+		rs.close();pst.close();
+		return team;
+	}
+	
+	public void updateTeam(Team team) throws SQLException
+	{
+		String query="UPDATE team SET team_name=?, team_status=?, project_id=? "
+				+ "WHERE team_id=?";
+		
+		PreparedStatement pst=connection.prepareStatement(query);
+		
+		pst.setString(1, team.getTeamName());
+		pst.setInt(2, team.getTeamStatus());
+		pst.setInt(3, team.getProjectId());
+		pst.setInt(4, team.getTeamId());
+		
+		pst.executeUpdate();
+		pst.close();
+	}
 }

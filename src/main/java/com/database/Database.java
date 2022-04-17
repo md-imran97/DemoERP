@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.utility.EmployeeProjectData;
+
 public class Database {
 
 	private Connection connection = null;
@@ -18,6 +20,8 @@ public class Database {
 	private ProjectDb projectDb;
 	private LeaveDb leaveDb;
 	private AttendanceDb attendanceDb;
+	private DevelopmentDb developmentDb;
+	//private EmployeeProjectData employeeProjectDb;
 	
 	// Singleton design: allow to create only one database object
 	private static Database db=null;
@@ -35,11 +39,17 @@ public class Database {
 		employeeDb=new EmployeeDb(connection);
 		teamDb=new TeamDb(connection);
 		projectDb=new ProjectDb(connection);
+		developmentDb=new DevelopmentDb(connection);
+		//employeeProjectDb=new EmployeeProjectData(connection);
 	}
 	
 
 	public EmployeeDb getEmployeeDb() {
 		return employeeDb;
+	}
+
+	public DevelopmentDb getDevelopmentDb() {
+		return developmentDb;
 	}
 
 	public TeamDb getTeamDb() {

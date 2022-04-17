@@ -4,10 +4,12 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.coyote.Request;
 import org.springframework.objenesis.instantiator.basic.NewInstanceInstantiator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.database.Database;
 import com.entity.Employee;
 import com.entity.Project;
+import com.entity.Team;
+import com.utility.EmployeeProjectData;
 import com.viewmodel.LoginEntity;
 
 @Controller
@@ -95,5 +99,28 @@ public class EmployeeController {
 		model.addAttribute("employees", db.getEmployeeDb().getAllEmployee());
 		
 		return "employee/showEmployees";
+	}
+	
+	@RequestMapping(value = "employee-details", method = RequestMethod.GET)
+	public String employeeDetails(Model model, @RequestParam(name = "empId", required = true) int id,@SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
+	{
+		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		System.out.println(id);
+		Database db=Database.getDatabase();
+		Employee emp=db.getEmployeeDb().getEmployee(id);
+		var employeeAndProjs=EmployeeProjectData.getEmployeeAndProjects(id);
+		model.addAttribute("data",employeeAndProjs);
+		model.addAttribute("employee",emp);
+		return "employee/employeeDetails";
+	}
+	
+	@RequestMapping(value = "employee-update", method = RequestMethod.POST)
+	public String employeeDetails(Model model,@ModelAttribute("employee")Employee emp,@SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
+	{
+		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		Database db=Database.getDatabase();
+		db.getEmployeeDb().updateEmployee(emp);
+		model.addAttribute("msg","Info updated");
+		return "redirect:/employee-details?empId="+emp.getEmployeeId();
 	}
 }

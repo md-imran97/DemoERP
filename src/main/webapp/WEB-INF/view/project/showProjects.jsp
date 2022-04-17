@@ -12,14 +12,14 @@
 	<h1>Project List</h1><br>
 	<a href="admin-home">Home</a><br><br>
 		<table border="1">
-			<thead>
-				<td>Project ID</td>
-				<td>Project Name</td>
-				<td>Client Name</td>
-				<td>Client Email</td>
-				<td>Project Status</td>
-				<td>####</td>
-			</thead>
+			<tr>
+				<th>Project ID</th>
+				<th>Project Name</th>
+				<th>Client Name</th>
+				<th>Client Email</th>
+				<th>Project Status</th>
+				<th>####</th>
+			</tr>
 			<c:forEach var="p" items="${projects}">
 				<tr>
 					<td>${p.projectId}</td>

@@ -29,6 +29,18 @@ public class EmployeeDb {
 		return emplyee;
 	}
 	
+	public Employee getEmployee(int empId) throws SQLException
+	{
+		String query="select * from employee where employee_id = ?";
+		PreparedStatement pst=connection.prepareStatement(query);
+		pst.setInt(1, empId);
+		ResultSet rs = pst.executeQuery();
+		
+		Employee emplyee=EmployeeUtil.rsToEmployee(rs);
+		rs.close();pst.close();//connection.close();
+		return emplyee;
+	}
+	
 	public List<Employee> getAllEmployee() throws SQLException
 	{
 		String query="select * from employee";
@@ -56,6 +68,26 @@ public class EmployeeDb {
 		pst.setString(5, employee.getEmployeeDesignation());
 		pst.setInt(6, employee.getEmployeeType());
 		pst.setInt(7, employee.getEmployeeStatus());
+		
+		pst.executeUpdate();
+		pst.close();
+	}
+	
+	public void updateEmployee(Employee employee) throws SQLException
+	{
+		String query="UPDATE employee SET employee_name=?, employee_email=?, "
+				+ "employee_gender=?, employee_designation=?, employee_type=?, "
+				+ "employee_status=? WHERE employee_id=?";
+		
+		PreparedStatement pst=connection.prepareStatement(query);
+		
+		pst.setString(1, employee.getEmployeeName());
+		pst.setString(2, employee.getEmployeeEmail());
+		pst.setInt(3, employee.getEmployeeGender());
+		pst.setString(4, employee.getEmployeeDesignation());
+		pst.setInt(5, employee.getEmployeeType());
+		pst.setInt(6, employee.getEmployeeStatus());
+		pst.setInt(7, employee.getEmployeeId());
 		
 		pst.executeUpdate();
 		pst.close();
