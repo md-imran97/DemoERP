@@ -53,14 +53,14 @@ public class TeamDb {
 		return team;
 	}
 	
-	public Team getTeamByProjectId(int projectId) throws SQLException
+	public List<Team> getTeamsByProjectId(int projectId) throws SQLException
 	{
 		String query="select * from team where project_id="+projectId;
 		PreparedStatement pst=connection.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
-		var team=TeamUtil.rsToTeam(rs);
+		var teams=TeamUtil.rsToTeams(rs);
 		rs.close();pst.close();
-		return team;
+		return teams;
 	}
 	
 	public void updateTeam(Team team) throws SQLException
@@ -74,6 +74,17 @@ public class TeamDb {
 		pst.setInt(2, team.getTeamStatus());
 		pst.setInt(3, team.getProjectId());
 		pst.setInt(4, team.getTeamId());
+		
+		pst.executeUpdate();
+		pst.close();
+	}
+	
+	public void updateTeamStatus(int teamId, int teamStatus) throws SQLException
+	{
+		String query="UPDATE team SET team_status=? WHERE team_id=?";
+		PreparedStatement pst=connection.prepareStatement(query);
+		pst.setInt(1, teamStatus);
+		pst.setInt(2, teamId);
 		
 		pst.executeUpdate();
 		pst.close();

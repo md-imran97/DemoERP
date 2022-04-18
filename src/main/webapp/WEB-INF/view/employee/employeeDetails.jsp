@@ -73,12 +73,12 @@
 </tr>
 <c:forEach var="data" items="${data}">
 				<tr>
-					<td>${data.projectId}</td>
+					<td><a href="project-details?projectId=${data.projectId}">${data.projectId}</a></td>
 					<td>${data.projectName}</td>
 					<td>${data.projectStatus ==1 ? "Active":"Inactive"}</td>
-					<td>${data.teamId}</td>
+					<td><a href="team-details?teamId=${data.teamId}">${data.teamId}</a></td>
 					<td>${data.teamName}</td>
-					<td>${data.teamRole==1?"Team lead":"Developer"}</td>
+					<td>${data.teamRole==0?"Team lead":"Developer"}</td>
 					<td>${data.teamStatus ==1 ? "Active":"Inactive"}</td>
 				</tr>			
 			</c:forEach>

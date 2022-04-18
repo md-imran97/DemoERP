@@ -48,6 +48,7 @@ public class EmployeeController {
 		//Database db=new Database();
 		Database db=Database.getDatabase();
 		Employee employee=db.getEmployeeDb().getEmployee(loginEntity.getEmail());
+		
 		if((employee !=null) && (employee.getEmployeePassword().equals(loginEntity.getPassword())))
 		{
 			if(employee.getEmployeeType()==0)
@@ -95,6 +96,7 @@ public class EmployeeController {
 	public String showEmployees(Model model, @SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
 	{
 		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		
 		Database db=Database.getDatabase();
 		model.addAttribute("employees", db.getEmployeeDb().getAllEmployee());
 		
@@ -105,12 +107,14 @@ public class EmployeeController {
 	public String employeeDetails(Model model, @RequestParam(name = "empId", required = true) int id,@SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
 	{
 		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
-		System.out.println(id);
+		//System.out.println(id);
+		
 		Database db=Database.getDatabase();
 		Employee emp=db.getEmployeeDb().getEmployee(id);
 		var employeeAndProjs=EmployeeProjectData.getEmployeeAndProjects(id);
 		model.addAttribute("data",employeeAndProjs);
 		model.addAttribute("employee",emp);
+		
 		return "employee/employeeDetails";
 	}
 	
@@ -118,9 +122,33 @@ public class EmployeeController {
 	public String employeeDetails(Model model,@ModelAttribute("employee")Employee emp,@SessionAttribute(name="user", required=false)Employee employee) throws ClassNotFoundException, SQLException
 	{
 		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		
 		Database db=Database.getDatabase();
 		db.getEmployeeDb().updateEmployee(emp);
 		model.addAttribute("msg","Info updated");
+		
 		return "redirect:/employee-details?empId="+emp.getEmployeeId();
+	}
+	
+	@RequestMapping(value = "create-employee", method = RequestMethod.GET)
+	public String createEmployee(Model model,@SessionAttribute(name="user", required=false)Employee employee)
+	{
+		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		
+		model.addAttribute("employee", new Employee());
+		
+		return "employee/createEmployee";
+	}
+	
+	@RequestMapping(value = "create-employee", method = RequestMethod.POST)
+	public String createEmployee(Model model,@SessionAttribute(name="user", required=false)Employee employee,@ModelAttribute("employee")Employee emp) throws ClassNotFoundException, SQLException
+	{
+		if(employee==null || employee.getEmployeeType()==1) {return "redirect:/login";}
+		
+		Database db=Database.getDatabase();
+		db.getEmployeeDb().addEmployee(emp);
+		model.addAttribute("msg", "info added");
+		
+		return "employee/createEmployee";
 	}
 }

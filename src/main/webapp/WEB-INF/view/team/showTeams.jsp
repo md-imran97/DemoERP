@@ -18,7 +18,6 @@
 				<th>Team Status</th>
 				<th>Project ID</th>
 				<th>####</th>
-				<th>#######</th>
 			</tr>
 			<c:forEach var="t" items="${teams}">
 				<tr>
@@ -26,8 +25,7 @@
 					<td>${t.teamName}</td>
 					<td>${t.teamStatus==1 ? "Active" : "Inactive"}</td>
 					<td>${t.projectId}</td>
-					<td><a href="">Edit</a></td>
-					<td><a href="">Details</a></td>
+					<td><a href="team-details?teamId=${t.teamId}">Details</a></td>
 				</tr>			
 			</c:forEach>
 		</table>

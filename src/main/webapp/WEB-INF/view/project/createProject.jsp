@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div align="center">
+	<h1>Create Project</h1><br>
 	<a href="admin-home">Home</a><br>
 	${msg}<br>
 		<form:form action="create-project" modelAttribute="project" method="post">

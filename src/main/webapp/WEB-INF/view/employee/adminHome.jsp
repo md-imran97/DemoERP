@@ -15,6 +15,7 @@
 	<a href="show-projects">Show Projects</a><br><br>
 	<a href="create-team">Create Team</a><br><br>
 	<a href="show-teams">Show Teams</a><br><br>
+	<a href="create-employee">Create Employee</a><br><br>
 	<a href="show-employees">Show Employees</a><br><br>
 	<h2>Personal Info:</h2>
 	<table border="1">

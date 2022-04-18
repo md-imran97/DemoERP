@@ -56,4 +56,21 @@ public class ProjectDb {
 		rs.close();pst.close();
 		return project;
 	}
+	
+	public void updateProject(Project project) throws SQLException
+	{
+		String query="UPDATE project SET project_name=?, project_client_name=?,"
+				+ " project_client_email=?, project_status=? WHERE project_id=?";
+		
+		PreparedStatement pst=connection.prepareStatement(query);
+		
+		pst.setString(1, project.getProjectName());
+		pst.setString(2, project.getProjectClientName());
+		pst.setString(3, project.getProjectClientEmail());
+		pst.setInt(4, project.getProjectStatus());
+		pst.setInt(5, project.getProjectId());
+		
+		pst.executeUpdate();
+		pst.close();
+	}
 }

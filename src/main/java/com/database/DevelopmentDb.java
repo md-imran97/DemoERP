@@ -32,15 +32,26 @@ public class DevelopmentDb {
 		return developments;
 	}
 	
-	public Development getDevelopmentByDevelopmentId(int id) throws SQLException
+	public List<Development> getDevelopmentsByTeamId(int teamId) throws SQLException
 	{
-		String query="select * from development where development_id = ?";
+		String query="select * from development where team_id = ?";
 		PreparedStatement pst=connection.prepareStatement(query);
-		pst.setInt(1, id);
+		pst.setInt(1, teamId);
 		ResultSet rs = pst.executeQuery();
 		
-		var development=DevelopmentUtil.rsToDevelopment(rs);
+		var developments=DevelopmentUtil.rsToDevelopments(rs);
 		rs.close();pst.close();
-		return development;
+		return developments;
+	}
+	
+	public void updateDevelopmentStatus(int teamId, int developmentStatus) throws SQLException
+	{
+		String query="UPDATE development SET development_status=? WHERE team_id=?";
+		PreparedStatement pst=connection.prepareStatement(query);
+		pst.setInt(1, developmentStatus);
+		pst.setInt(2, teamId);
+		
+		pst.executeUpdate();
+		pst.close();
 	}
 }

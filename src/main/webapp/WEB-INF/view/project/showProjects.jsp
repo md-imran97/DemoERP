@@ -27,7 +27,7 @@
 					<td>${p.projectClientName}</td>
 					<td>${p.projectClientEmail}</td>
 					<td>${p.projectStatus ==1 ? "Active":"Inactive"}</td>
-					<td><a href="">Edit</a></td>
+					<td><a href="project-details?projectId=${p.projectId}">Details</a></td>
 				</tr>			
 			</c:forEach>
 		</table>
